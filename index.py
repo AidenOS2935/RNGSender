@@ -16,7 +16,7 @@ embeds = []
 
 @app.route("/add", methods=["POST"])
 async def add():
-    logger.info("Request received.")
+    logger.info(f"Request received. ({len(embeds)}/10)")
     global embeds
     data = request.json
     # add embeds
@@ -28,7 +28,7 @@ async def add():
     embed = Embed(
         title="Global",
         description=description,
-        color=None
+        color=0xff8479  # Discord color for #ff8479
     )
     embed.add_field(name="Rolls", value=str(data['rolls']), inline=True)
     embed.add_field(name="Time Discovered", value=f"<t:{data['timestamp']}:f>", inline=True)
