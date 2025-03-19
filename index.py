@@ -43,7 +43,6 @@ async def add():
                 async with aiohttp.ClientSession() as session:
                     webhook = Webhook.from_url(globalwebhook, session=session)
                     msg = await webhook.send(content="", embeds=embeds, wait=True)
-                    print(msg)
                     embeds = []
                     logger.info("Success: Embeds sent successfully.")
                     return jsonify({"message": "Sent"}), 201
