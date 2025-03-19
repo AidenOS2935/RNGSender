@@ -22,7 +22,7 @@ async def add():
     # add embeds
     description = f"**{data['nickname']} (@{data['username']})** HAS FOUND **{data['aura']}**, **{data['chance']}**"
     if data.get("biome") and data.get("biome") != "" and data.get("biome") != "None":
-        description += f" **[From {data['biome']}]**"
+        description += f" **{data['biome']}**"
     if data.get("firstfound", False):
         description += " **[FIRST FOUND!]**"
     embed = Embed(
