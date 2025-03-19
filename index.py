@@ -16,8 +16,8 @@ embeds = []
 
 @app.route("/add", methods=["POST"])
 async def add():
-    logger.info(f"Request received. ({len(embeds)}/10)")
     global embeds
+    logger.info(f"Request received. ({len(embeds)}/10)")
     data = request.json
     # add embeds
     description = f"**{data['nickname']} (@{data['username']})** HAS FOUND **{data['aura']}**, **{data['chance']}**"
