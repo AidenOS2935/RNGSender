@@ -2,16 +2,21 @@ from flask import Flask, jsonify, request
 from discord import Webhook, Embed  # Import Embed
 import aiohttp, os, dotenv
 import asyncio  # Import asyncio
+import logging  # Import logging
 
 app = Flask(__name__)
 dotenv.load_dotenv()
 url = os.getenv("WEBHOOK_URL")
 
+# Configure logger
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 embeds = []
 
 @app.route("/add", methods=["POST"])
 async def add():
-    print("Request received.")
+    logger.info("Request received.")
     global embeds
     data = request.json
     # add embeds
@@ -35,10 +40,10 @@ async def add():
                 webhook = Webhook.from_url(url, session=session)
                 await webhook.send(content=None, embeds=embeds)
                 embeds = []
-                print("Success: Embeds sent successfully.")
+                logger.info("Success: Embeds sent successfully.")
                 return jsonify({"message": "Sent"}), 201
         except Exception as e:
-            print(f"Error: {e}")
+            logger.error(f"Error: {e}")
             return jsonify({"message": "Failed to send embeds", "error": str(e)}), 500
     if len(embeds) >= 10:
         try:
@@ -46,10 +51,10 @@ async def add():
                 webhook = Webhook.from_url(url, session=session)
                 await webhook.send(content=None, embeds=embeds[:10])
                 embeds = embeds[10:]
-                print("Success: Embeds sent successfully (overflowing).")
+                logger.info("Success: Embeds sent successfully (overflowing).")
                 return jsonify({"message": "Sent (overflowing)"}), 201
         except Exception as e:
-            print(f"Error: {e}")
+            logger.error(f"Error: {e}")
             return jsonify({"message": "Failed to send embeds (overflowing)", "error": str(e)}), 500
     else:
         return jsonify({"message": "Added"}), 201
