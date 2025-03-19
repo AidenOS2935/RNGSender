@@ -1,0 +1,5 @@
+flask[async]
+discord.py
+aiohttp
+python-dotenv
+gunicorn
