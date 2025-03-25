@@ -42,6 +42,7 @@ async def add():
         )
         embed.add_field(name="Rolls", value=str(data['rolls']), inline=True)
         embed.add_field(name="Time Discovered", value=f"<t:{data['timestamp']}:f>", inline=True)
+        embed.add_field(name="Roll Luck", value=str(data['rollLuck']), inline=True)
         embeds.append(embed)
 
         if len(embeds) == 10:
@@ -88,6 +89,7 @@ async def add():
         )
         embed.add_field(name="Rolls", value=str(data['rolls']), inline=True)
         embed.add_field(name="Time Discovered", value=f"<t:{data['timestamp']}:f>", inline=True)
+        embed.add_field(name="Roll Luck", value=str(data['rollLuck']), inline=True)
         tenmils.append(embed)
 
         if len(tenmils) == 10:
